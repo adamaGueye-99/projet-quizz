@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Création des questions</title>
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+    </head>
+       
+    <body>
+        <div class="transparent">
+        <header>
+            <nav>
+                <div class="logo"></div>
+                <div class="titre">Le plaisir de jouer</div>
+            </nav>
+                    </header>
+            <div class="container">
+        <div class="box w92">
+            <div class="head_box">
+                                <p><br>Créer et paramétrer vos quizz</p>
+                
+<link rel="stylesheet" type="text/css" href="./assets/css/modal.css">
+<div id="myModal" class="modal">
+
+
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close cl">&times;</span>
+      <p class="big_font">Déconnexion</p>
+    </div>
+    <div class="modal-body">
+      <p class='col_r'> etes vous surs de vouloir vous deconnecter?</p>
+    </div>
+    <div class="modal-footer ">
+      <button class='close ipbtn col_r'> Annuler</button> <a id="href_id" href="index.php?origin=deconnexion"> <button name='submit' class="ipbtn float_r" ><a href="index.html"> Confirmer</a></button></a>
+    </div>
+  </div>
+
+</div>              
+                    <button class="ipbtn pos_abs float_r" id="myBtn" >Déconnexion</button>
+            
+            </div>
+                   <link rel="stylesheet" type="text/css" href="assets/css/homeAdmin.css">
+       <link rel="stylesheet" type="text/css" href="assets/css/styleCheck.css">
+       <link rel="stylesheet" type="text/css" href="assets/css/styleCheckAdmin.css">
+        
+    <div class="body_box">
+        <div class="box_menu_1">
+            <div class="div_avatar_1">
+                <div class="img_avatar_1">
+                    <img class="w_70_h_70" alt="av" src=" assets/icones/ada.jpeg"/>
+                </div>
+                <div class="float_l ">
+                    <br><br>
+                    <a href="index.php?origin=admin&action=profilAdmin">
+                        <div>&nbsp;&nbsp;&nbsp;<label class="lab_prenom ">yaye adama</label></div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label class="lab_nom">GUEYE</label></div>
+                    </a>
+                </div>
+            </div>
+            <div class="div_menu"> 
+                <a href="Liste Questions.html"><div class="li  sm_1" ><span>Liste Questions</span></div></a>
+                <a href="Créer Admin.html"><div class="li  sm_2" >Créer Admin</div></a>
+                <a href="Liste Joueurs.html"><div class="li  sm_3" >Liste joueurs</div></a>
+                <a href="Créer Questions.html"> <div class="li active  sm_4 " >Créer Questions</div></a>
+            </div>
+        </div>
+
+        <div class="rotate_page">
+                
+		<link rel="stylesheet" type="text/css" href="assets/css/styleCQ.css">
+<div class="contain_pl">
+	    <h2 class="h2">Paramétrez votre question </h2>
+	    <div class="contain_sub">
+		        <form method="POST" id="mainform"action="index.php?origin=admin" onsubmit="return validate();" name="mainform" >
+		            <div class="div_question">
+		                <label>Questions</label>
+                        <textarea name="question"  onkeyup='removeErrorTxt("error_1")' id="question" error='error_1'></textarea>
+                        <small class="error" id='error_1'></small>
+		            </div>
+		            <div class="div_score">
+		                <label>Nombre de points </label><input id="score" type="text" error='error_2' name="score" />
+                        <small class="error" id='error_2'></small>
+                    </div>
+		            <div class="div_type">
+		                <label>Type de reponse </label>
+		                <select name="type" id="type" >
+		                    <option value="cm">choix multiple</option>
+		                    <option value="cs">choix simple</option>
+		                    <option value="ct">choix text</option>
+		                </select>
+		                <span><input type="button" class="btn_gene"  id="btn_gene"  value="&nbsp;" ></span>
+                        
+                    </div>
+                    <br>
+                    <div class="div_question">
+		            <span id="div_reponse" >
+                        
+                        <label>reponse</label>
+                        <textarea name="reponse"  onkeyup='removeErrorTxt("error_1")' id="reponse" src=" assets/icones/ic-supprimer.png" error='error_1'> </textarea>
+                    </div>
+                    </span>
+                    <small id="general_error" class="error"> </small>
+		            <input type="submit" class="btn_enr" name="register_question" value="Enregistrer"/>
+		        </form>
+	    </div>
+</div>
+
+
+<script>
+    
+    const inputs = document.getElementsByTagName("input");
+                for(let input of inputs)
+                {
+                    input.addEventListener("keyup",function(e)
+                    {
+                        if(e.target.hasAttribute("error"))
+                        {
+                            var idDivError=e.target.getAttribute("error");
+                            document.getElementById(idDivError).innerText="";
+                        }
+                    })
+                }
+
+                document.getElementById("mainform").addEventListener("submit",function(e)
+                {   
+                    const inputs=document.getElementsByTagName("input");
+                    var error=false;
+                    for(let input of inputs)
+                    {
+                        if(input.hasAttribute("error"))
+                        {
+                            var idDivError = input.getAttribute("error");
+                            if(!input.value)
+                            {
+                                document.getElementById(idDivError).innerText='ce champ est obligatoitre';
+                                error=true;
+                            }
+                        }
+
+                    }
+                    if(error)
+                    {
+                        e.preventDefault();
+                        return false;
+                    }
+                })
+</script>
+<script>
+    
+    document.getElementById("type").addEventListener("change",function(e)
+    {
+       resetElements();
+       var typ = document.getElementById('type').value
+       if(typ==="ct")
+       {
+        document.getElementById("div_reponse").innerHTML="<span class='al_c'><label>Reponse &nbsp; &nbsp;</label> <input type='text' class='stlIp' onkeyup='removeErrorTxt(\"errortxt\")' error='errortxt' name='breponses[]' /></span> <br> <small id='errortxt' class='error'></small>";
+        }
+        removeErCk()
+    }); 
+    
+    
+    function removeErrorTxt(id)
+    {
+       document.getElementById(id).innerHTML="";
+    }
+
+    function removeErCk()
+    {
+       document.getElementById("general_error").innerHTML="";
+    }
+    
+
+    function disabledBtn()
+    {
+        var btn= document.getElementById("btn_gene");
+        var num=numberChamp();
+        if(num>=10)
+        {
+            btn.setAttribute("disabled","true");
+        }
+        else
+        {
+            btn.removeAttribute("disabled");  
+        }
+
+    }
+
+
+
+function numberChamp()
+{
+	const champs=document.getElementsByTagName("input");
+	var number=0;
+	for(let champ of champs)
+	{
+		if(champ.hasAttribute("cp"))
+		{
+			number++;
+		}
+
+	}
+
+	return number;
+}
+
+
+function validateTextReponse()
+{
+    const inputs = document.getElementsByTagName("input");
+    var nbrCpNonvide=0;
+    for(let input of inputs)
+    {
+        if(input.hasAttribute("error0"))
+        {
+            if(input.value)
+            {
+                nbrCpNonvide++
+            }
+        }
+    }
+
+    return nbrCpNonvide >=2;
+    
+}
+
+
+function validateScQuest()
+{
+    var score= document.getElementById("score").value;
+    var question = document.getElementById("question").value;
+    var error=false;
+
+   if(!Number.isInteger(+score))
+   {
+        document.getElementById('error_2').innerText="veuillez mettre un nombre entier positif";
+       error= true; 
+   }
+   if(!question)
+   {
+    document.getElementById('error_1').innerText="la case ne doit pas rester vide";
+     error=true;
+        
+   }
+    
+
+   return !error;
+        
+}
+
+function validate()
+{
+   var form = document.getElementById("mainform");
+   var typ = document.getElementById('type').value
+   var errorep=false;
+   
+   if(typ=="cm" || typ=='cs')
+   {
+     
+            var checked = 0;
+
+            var chks = form.getElementsByClassName("ck")
+            for (let chk of chks) 
+            { 
+                if (chk.checked) {
+                    checked++;
+                }
+            }
+        
+            var tv=validateTextReponse();
+
+            
+            if (checked <= 0 || !tv) 
+            {
+                if(checked <= 0)
+                {
+                        document.getElementById("general_error").innerHTML="veuillez cocher un champ <br>";
+                }
+                if(!tv)
+                {
+                        document.getElementById("general_error").innerHTML+="il faut au moins remplir deux reponses"; 
+                }
+
+                errorep = true;
+            }
+
+    }
+
+
+    return validateScQuest() && !errorep;
+}
+
+    
+var i = 0; 
+function increment()
+{
+    i += 1; 
+}
+
+
+function removeElement(parentDiv, childDiv){
+    if (childDiv == parentDiv)
+    {
+    	return ;
+    }
+    else
+    if (document.getElementById(childDiv))
+    {
+    	var child = document.getElementById(childDiv);
+    	var parent = document.getElementById(parentDiv);
+        parent.removeChild(child);
+        
+            genRepNumb();
+        
+            disabledBtn()
+    }
+    else
+    {
+    	return false;
+    }
+}
+
+
+document.getElementById("btn_gene").addEventListener("click",function(e)
+    {
+        var type=document.getElementById("type").value
+        if(type==="cm" || type==="cs")
+         {
+            var r = document.createElement('span');
+                    r.setAttribute("class", "w_96");
+            
+            var l = document.createElement('LABEL');
+                l.setAttribute("class", "lab");
+            
+            var y = document.createElement("INPUT");
+                y.setAttribute("type", "text");
+                y.setAttribute("class", "stlIp");
+
+            
+                r.appendChild(l);
+                    y.setAttribute("cp", "cp");
+                    
+                
+                var g = document.createElement("input");
+                g.setAttribute("type", "button");
+                g.setAttribute("class", "btn_remove");
+                
+                increment();
+                
+                y.setAttribute("Name", "reponse_" + i);
+                y.setAttribute('onkeyup','removeErCk()');
+                y.setAttribute("error0", "error_" +(i+3));
+                    r.appendChild(y);
+                var c = document.createElement("INPUT");
+                    c.setAttribute("class", "ck");
+                    c.setAttribute("Name", "check[]" );
+                    c.setAttribute("onclick", "removeErCk()" );
+                    removeErCk()
+                    if(type==="cm")
+                    {
+                        c.setAttribute("type", "checkbox");
+                    }
+                    else if(type==="cs")
+                    {
+                        c.setAttribute("type", "radio");
+                    }
+                    c.setAttribute("value", i);
+                    r.appendChild(c);
+                
+                g.setAttribute("onclick", "removeElement('div_reponse','id_" + i + "')");
+                r.appendChild(g);
+                
+                var err=document.createElement("small");
+                err.setAttribute("id", "error_" +(i+3));
+                err.setAttribute("class", "error error_rep");
+                r.appendChild(err);
+                
+                r.setAttribute("id", "id_" + i);
+            document.getElementById("div_reponse").appendChild(r);
+        
+            
+              genRepNumb();
+        
+              disabledBtn();
+        }
+    });
+
+
+    function genRepNumb()
+    {
+        var form = document.getElementById("mainform");
+        var labs=form.getElementsByClassName("lab")
+        for (var i = 0; i < labs.length; i++) 
+        { 
+            labs[i].innerHTML="Reponse "+(i+1);
+        }
+    }
+
+
+
+    function resetElements()
+    {
+        document.getElementById('div_reponse').innerHTML = '';
+        disabledBtn()
+        
+    }
+</script>
+        </div>
+    </div>
+        </div>
+    </div>
+
+    <script>
+        
+var modal = document.getElementById("myModal");
+
+var btn = document.getElementById("myBtn")
+var span = document.getElementsByClassName("close")[1];
+
+var span1 = document.getElementsByClassName("close")[0];
+
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+span1.onclick = function() {
+  modal.style.display = "none";
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+    </script>
+        <div>
+    </body>
+</html>
